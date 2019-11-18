@@ -32,8 +32,8 @@ export default  class dataTracker {
              }
 
              storeMean = (value) => {
-
-                 this.meanTemp = ((value.reduce((a,b) => a + b, 0)) / value.length);
+                // rounds to 2 decimel places the mean (sum / num of elements)
+                 this.meanTemp = (Math.floor(((value.reduce((a,b) => a + b, 0)) / value.length)*100)/100);
              }
 
              storeMode = (value) => {

@@ -1,7 +1,12 @@
 # Weather App
 
  This is a project using React and OpenWeatherMap (https://openweathermap.org/api)
-
+ 
+ Live: https://master--wizardly-wescoff-4ecf4f.netlify.com/
+ 
+ Preview:
+ 
+ ![](https://i.imgur.com/AQ1LW1Z.png)
 
 
  ### Aims:

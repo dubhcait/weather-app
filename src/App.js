@@ -16,42 +16,28 @@ import Button from '@material-ui/core/Button';
 import axios from 'axios';
 
 import { baseURL, dataPoints } from './util/constants'
+import filterApiResponse from './util/filterApiResponse'
 
-const useStyles = makeStyles(theme => ({
-  button: {
-    margin: theme.spacing(1),
-  },
-  container: {
-    display: 'flex',
-    flexWrap: 'wrap',
-  },
-  textField: {
-    marginLeft: theme.spacing(1),
-    marginRight: theme.spacing(1),
-    width: 200,
-  },
-  formControl: {
-    margin: theme.spacing(3),
-  },
-  // formControl: {
-  //   margin: theme.spacing(1),
-  //   minWidth: 120,
-  // },
-  selectEmpty: {
-    marginTop: theme.spacing(2),
-  },
-}));
+
+import Statistics from './components/statistics'
+
+
 
 function App() {
 
   const [cityName, setCityName] = useState('');
   const [units, setUnits] = useState('metric');
   const [countryCode, setCountryCodes] = useState('');
+  const [filteredData, setFilteredData] = useState(null)
+
 
   const classes = useStyles();
   const query = `http://${baseURL}?q=${cityName},${countryCode}&cnt=${dataPoints}&units=${units}&APPID=${process.env.REACT_APP_API_KEY}`
-  const onSubmit = () => { 
-    axios.get(query).then(response => console.log(response.data))
+  const onSubmit = () => {
+    axios.get(query).then(response => {
+
+      setFilteredData(filterApiResponse(response.data.list))
+    }).catch(err => console.log(err))
   }
 
   return (
@@ -60,6 +46,7 @@ function App() {
       <form className={classes.container} noValidate autoComplete="off">
         <div>
           <TextField
+          required
             className={classes.textField}
             value={cityName}
             onChange={(e) => { setCityName(e.target.value) }}
@@ -67,7 +54,7 @@ function App() {
             margin="normal"
           />
         </div>
-        <FormControl className={classes.formControl}>
+        <FormControl required className={classes.formControl}>
           <InputLabel id="demo-simple-select-label">Country</InputLabel>
           <Select
             labelId="demo-simple-select-label"
@@ -84,16 +71,18 @@ function App() {
           </Select>
         </FormControl>
 
-        <FormControl component="fieldset" className={classes.formControl}>
+        <FormControl component="fieldset">
           <FormLabel component="legend">Units</FormLabel>
-          <RadioGroup aria-label="gender" name="gender2" value={units} onChange={(e) => { setUnits(e.target.value) }}>
+          <RadioGroup className={classes.units} value={units} onChange={(e) => { setUnits(e.target.value) }}>
             <FormControlLabel
+              className={classes.label}
               value="metric"
               control={<Radio color="primary" />}
               label="metric"
               labelPlacement="start"
             />
             <FormControlLabel
+              className={classes.label}
               value="imperial"
               control={<Radio color="primary" />}
               label="imperial"
@@ -105,8 +94,43 @@ function App() {
       </Button>
         </FormControl>
       </form>
+      {filteredData ? <Statistics data={filteredData} /> : null}
     </div>
   );
 }
+
+const useStyles = makeStyles(theme => ({
+  button: {
+    margin: 'auto',
+    marginTop: '16px',
+    marginBottom: '16px',
+  },
+  container: {
+    display: 'flex',
+    flexWrap: 'wrap',
+    flexDirection: 'column',
+    margin: 'auto',
+    width: '60%',
+  },
+  textField: {
+    margin: theme.spacing(3),
+    width: '90%',
+    justifyContent: 'center',
+  },
+  formControl: {
+    margin: theme.spacing(3),
+  },
+  selectEmpty: {
+    marginTop: theme.spacing(2),
+  },
+  units:{
+  flexDirection: 'row',
+  justifyContent: 'center',
+  marginTop: theme.spacing(2),
+  },
+  label: {
+  justifyContent: 'center',
+  },
+}));
 
 export default App;

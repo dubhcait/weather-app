@@ -7,28 +7,6 @@ import { makeStyles } from '@material-ui/core/styles';
 
 import { createDataTracker } from '../util/dataTracker'
 
-const useStyles = makeStyles(theme => ({
-    container: {
-        display: 'flex',
-        flexWrap: 'wrap',
-        flexDirection: 'column',
-      },
-      options: {
-        display: 'flex',
-        flexWrap: 'wrap',
-        flexDirection: 'row',
-        justifyContent: 'center',
-        marginBottom: '20px'
-      },
-      statistics:{
-        display: 'flex',
-        flexWrap: 'wrap',
-        flexDirection: 'row', 
-        justifyContent: 'space-evenly',
-      }
-
-
-}))
 
 export default (props) => {
     const [displayType, setDisplayType] = useState('dayTemp')
@@ -92,3 +70,26 @@ export default (props) => {
         </div>
     )
 }
+
+const useStyles = makeStyles(theme => ({
+    container: {
+        display: 'flex',
+        flexWrap: 'wrap',
+        flexDirection: 'column',
+      },
+      options: {
+        display: 'flex',
+        flexWrap: 'wrap',
+        flexDirection: 'row',
+        justifyContent: 'center',
+        marginBottom: '20px'
+      },
+      statistics:{
+        display: 'flex',
+        flexWrap: 'wrap',
+        flexDirection: 'row', 
+        justifyContent: 'space-evenly',
+      }
+
+
+}))

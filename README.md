@@ -10,7 +10,7 @@
 
 - [x]  Call 5-day forecast on the target city (with cnt=5 GET parameter) and create following different data tracker objects from above data tracker class
 
-- [x] 3. Render these data tracker objects into a separate UI section called statistics
+- [x]  Render these data tracker objects into a separate UI section called statistics
  
 
 ## Setup

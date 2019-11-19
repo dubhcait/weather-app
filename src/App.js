@@ -32,7 +32,7 @@ function App() {
 
 
   const classes = useStyles();
-  const query = `http://${baseURL}?q=${cityName},${countryCode}&cnt=${dataPoints}&units=${units}&APPID=${process.env.REACT_APP_API_KEY}`
+  const query = `https://${baseURL}?q=${cityName},${countryCode}&cnt=${dataPoints}&units=${units}&APPID=${process.env.REACT_APP_API_KEY}`
   const onSubmit = () => {
     axios.get(query).then(response => {
 
